@@ -1,5 +1,1 @@
-# Basic Linux Commands
-1. pwd
-Print the current working directory.
-2. vi
-Launch the default editor.
+<p><strong>Basic Linux Commands</strong><br />1. pwd <br />Print the current working directory.<br />2. vi <br />Launch the default editor.</p>
