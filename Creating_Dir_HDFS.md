@@ -68,6 +68,6 @@ Append the data in ‘wcount.txt’ in local FS to word-count.txt in the HDFS
 Display the contents of the file using:
     
 
-     hadoop fs –cat /user/acadgild/hadoop/word-count.txt
+     hadoop fs –cat /user/mydir/hadoop/word-count.txt
 
 
