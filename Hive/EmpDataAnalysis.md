@@ -31,3 +31,10 @@ Load data in to employee table
 check the table 
 
     SELECT * FROM employee;
+    
+To calculate the number of employees corresponding to each skill: Selecting the Skill and Count (Can be Count(emp_Name) too) and grouping the result according to the Skill. So we get each Skill with a count of the employees.
+
+    SELECT emp_Skill AS SKILL ,COUNT(emp_name) AS EMP_COUNT FROM employee GROUP BY emp_Skill;
+or
+
+    SELECT emp_Skill AS SKILL ,COUNT(*) AS EMP_COUNT FROM employee GROUP BY emp_Skill;
