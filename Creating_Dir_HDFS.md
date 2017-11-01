@@ -28,7 +28,7 @@ Try to type (on screen) few lines from any online article or textbook.
 
 
 
-2) Create directory /user/acadgild/hadoop
+2) Create directory /user/mydir/hadoop
 
           hadoop fs –mkdir /user/mydir/hadoop
 
