@@ -42,3 +42,22 @@ To calculate the number of employees corresponding to each skill: Selecting the 
 or
 
     SELECT emp_Skill AS SKILL ,COUNT(*) AS EMP_COUNT FROM employee GROUP BY emp_Skill;
+    
+**Solution** for task --> Find the employee count for a skill or set of skills for a particular location.
+we can use the partitioning feature in Hive and partition the data based on the field of our choice.Here we are going to partition based on location 
+
+First we create a table named employee_location_Partitioned
+
+    CREATE TABLE employee_location_Partitioned(emp_Name STRING,emp_Skill STRING,emp_Rating INT)
+    PARTITIONED BY (emp_Location STRING);
+Then we insert the data in to that table  based on Location . Here we use BBSR as a Location.
+
+    INSERT OVERWRITE TABLE employee_location_partitioned
+    PARTITION(emp_Location = 'BBSR')
+    SELECT emp_Name,emp_Skill,emp_Rating FROM employee WHERE emp_Location = 'BBSR';
+
+Now check the table employee_location_partitioned. it will have the data only of location BBSR
+
+*Note:* This feature will be more useful in cases where the dataset is too big and/or we continuously query only a part of it.
+
+
