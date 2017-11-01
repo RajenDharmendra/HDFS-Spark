@@ -32,6 +32,9 @@ Change the permission of the file /path/to/yourfile-in-HDFS/max-temp.txt, such t
 </code></pre>
 
 <p>Here 770 signifies:                                                     Execute(x) – 1, Write(w) – 2, Read(r) – 4.</p>
+
+
+
 | Digit    | Title | Read   |Write|Execute|Control
 | :------- | ----: | :---: |:---:|:---:|:---:|
 | 7|Owner/User |  Yes  |Yes|Yes|Full
