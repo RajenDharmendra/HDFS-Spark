@@ -67,3 +67,20 @@ Now run
     SELECT * FROM temperature_data_view;
 and see the results.
 
+Export contents from temperature_data_view to a file in local file system, such that each file is '|' delimited.
+
+**Solution:**
+To export the contents of the above created view, we have to run the following query,
+
+    INSERT OVERWRITE LOCAL DIRECTORY '/home/path/to/your/location/output_View' 
+    ROW FORMAT DELIMITED 
+    FIELDS TERMINATED BY '|'
+    SELECT * FROM temperature_data_view;
+
+After executing the above query you will have a file named  000000_0 in 
+/home/path/to/your/location/output_View this location 
+Now check the contents of the file by doing cat on it
+
+    cat 000000_0;
+
+
