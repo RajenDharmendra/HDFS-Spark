@@ -45,12 +45,12 @@ cat the file to see the contents
 
   
 
-      CREATE TABLE temp(
-      temp_date string,
-      zipCode int,
-      temperature int)
-      ROW FORMAT DELIMITED
-      FIELDS TERMINATED BY  ',' ;
+	      CREATE TABLE temp(
+	      temp_date string,
+	      zipCode int,
+	      temperature int)
+	      ROW FORMAT DELIMITED
+	      FIELDS TERMINATED BY  ',' ;
       
 
 8) Again listing the tables in ‘custom’ and Databases in the system. 
