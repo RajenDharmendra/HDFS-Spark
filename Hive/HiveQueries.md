@@ -35,7 +35,7 @@ Execute the following queries in Hive
 Calculate maximum temperature corresponding to every year from temperature_data table.
 
 
-**SOLUTION:**
+**Solution:**
 To get the maximum temperature for a given year:
 
 Split the date column, that is in the form mm-dd-yyyy, such that we only get the yyyy.
@@ -43,3 +43,12 @@ Group the records with respect to the year split. So we get one value for every 
 Now the maximum temperature will be found for the group year i.e. The max temperature in every year group.
 
     SELECT split(temp_date,'-')[2],MAX(temperature) from temperature_data GROUP BY split(temp_date,'-')[2];
+    
+Calculate maximum temperature from temperature_data table corresponding to those years which have at least 2 entries in the table.
+
+
+Solution:
+Same as the above problem. But here, we  have to  include a 3rd column to show the number of times the date has appeared in the table.
+As explained above, The maximum temperature as well as the count of records(greater that 2) will be found for the group year i.e. The max temperature & count of years in every year group.
+
+    SELECT split(temp_date,'-')[2],MAX(temperature),COUNT(*) AS CNT  from temperature_data GROUP BY split(temp_date,'-')[2] HAVING CNT >=2;
