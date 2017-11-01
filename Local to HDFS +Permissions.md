@@ -21,14 +21,14 @@ Change the permission of the file /path/to/yourfile-in-HDFS/max-temp.txt, such t
 
 <p>Check if file has been successfully moved to the HDFS location.</p>
 
-<pre><code>hdfs dfs –ls /path/to/hadoop
+<pre><code>hadoop fs –ls /path/to/hadoop
 </code></pre>
 
 <p>3)Change the permission of the file  /path/to/yourfile-in-HDFS/max-temp.txt.</p>
 
 <p>Owner and Group have full control. Others have no control.</p>
 
-<pre><code>hdfs dfs –chmod 770 /path/to/hadoop/max-temp.txt
+<pre><code>hadoop fs –chmod 770 /path/to/hadoop/max-temp.txt
 </code></pre>
 
 <p>Here 770 signifies:                                                     Execute(x) – 1, Write(w) – 2, Read(r) – 4.</p>
