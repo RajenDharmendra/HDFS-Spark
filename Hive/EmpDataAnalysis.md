@@ -4,6 +4,10 @@ Employee Data Analysis
 **Task:**
 
 Calculate the number of employees corresponding to each skill from the table 'employee'. Use data emp_details in dataset.
+
+Find the employee count for a skill or set of skills for a particular location.
+
+
 **Solution:** 
 Load the data in to local file system as emp_details.txt.
 
