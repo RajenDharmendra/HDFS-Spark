@@ -29,5 +29,5 @@ Fetch date and temperature from temperature_data where zip code is greater than 
 Execute the following queries in Hive
 
     SHOW DATABASES;
-    USE CUSTOM;
+    USE custom;
     SELECT temp_date,temperature FROM temperature_data WHERE zipcode >300000 AND  zipcode < 399999;
