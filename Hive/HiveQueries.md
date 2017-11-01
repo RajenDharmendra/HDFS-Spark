@@ -15,7 +15,7 @@ Create a view on the top of last query, name it temperature_data_vw.
 
 Export contents from temperature_data_vw to a file in local file system, such that each file is '|' delimited.
 
-**Solution;**
+**Solution:**
 
 *Initialization:*
 
@@ -47,7 +47,7 @@ Now the maximum temperature will be found for the group year i.e. The max temper
 Calculate maximum temperature from temperature_data table corresponding to those years which have at least 2 entries in the table.
 
 
-Solution:
+**Solution:**
 Same as the above problem. But here, we  have to  include a 3rd column to show the number of times the date has appeared in the table.
 As explained above, The maximum temperature as well as the count of records(greater that 2) will be found for the group year i.e. The max temperature & count of years in every year group.
 
