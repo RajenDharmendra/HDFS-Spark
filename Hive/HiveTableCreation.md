@@ -26,22 +26,22 @@ cat the file to see the contents
  By typing `hive` in the terminal
 3) Listing the databases currently in the system.
 
-     SHOW DATABASES;
+	     SHOW DATABASES;
 
 4) Listing the tables currently in the system. 
 
-    SHOW TABLES;
+	    SHOW TABLES;
 
 
 6) Creating the database ‘custom’ and using it (Now we can create tables inside ‘custom’.) 
 	
 
-    CREATE DATABASE custom;
+	    CREATE DATABASE custom;
 
 7) Creating Temporary table ‘temp’ in custom Database
  
 
-	   USE custom;
+	      USE custom;
 
   
 
@@ -78,8 +78,8 @@ Now insert data in to temperature_data table from temp table, while inserting co
 
 10) Now compare the results from two tables;
 
-    SELECT * FROM temperature_data;
-    SELECT * FROM temp;
+	    SELECT * FROM temperature_data;
+	    SELECT * FROM temp;
 
 
 
