@@ -61,7 +61,7 @@ Temporary table ‘temp’ has been created. Database ‘custom’ has been crea
 9) To create the table temperature_data, 
 Create a temporary table temp and load the ‘comma-delimited file’ contents of the dataset in it. (locally loaded)
 
-    	LOAD DATA LOCAL INPATH '/home/dharmukraj/hdfsSpark/dataset.txt' INTO TABLE temp ;
+    	LOAD DATA LOCAL INPATH '/home/yourfile/path/dataset.txt' INTO TABLE temp ;
 
 check the table contents
 
