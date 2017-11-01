@@ -57,12 +57,13 @@ Create a view on the top of last query, name it temperature_data_vw.
 
 **Solution:**
 Using the query previously executed, we have to create a View called temperature_data_vw having the columns **Datee,Temperature,Count.**
+
 *Note:* Date is a reserved keyword so use Datee instead of Date
 
     CREATE VIEW  temperature_data_view(Datee,Temperature,Count) AS SELECT split(temp_date,'-')[2],MAX(temperature),COUNT(*) AS CNT  from temperature_data GROUP BY split(temp_date,'-')[2] HAVING CNT >=2;
 
 Now run 
 
-    SELECT * FROM temperature_data_view
+    SELECT * FROM temperature_data_view;
 and see the results.
 
