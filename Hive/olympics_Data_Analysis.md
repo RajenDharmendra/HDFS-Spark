@@ -60,3 +60,17 @@ Load the dataset (with fields delimited by ‘\t’) ‘olympics_data.csv’ int
 First load the data in local file system, and then copy in to the table	
 
     LOAD DATA LOCAL INPATH '/home/path/to/your/file/olympics_data.csv' INTO TABLE olympics;
+    
+  First load the data in local file system, and then copy in to the table	
+
+    LOAD DATA LOCAL INPATH '/home/path/to/your/file/olympics_data.csv' INTO TABLE olympics;
+
+**Task->1.** Write a Hive program to find the number of medals won by each country in swimming.
+
+Selecting number of gold, silver, bronze and overall/total medals won by each Country for Swimming from the Olympics table.
+
+For this, we use the sum function to sum up all the different types of medals for each Country by grouping the data with respect to the Country and only selecting records where the Sport = Swimming.
+
+Here the total_medals is the final overall number of medals won by a Country in Swimming.
+
+    SELECT Country,SUM(gold_medals) AS GOLD,SUM(silver_medals) AS SILVER,SUM(bronze_medals) AS BRONZE,SUM(total_medals) AS TOTAL FROM olympics WHERE Sport="Swimming" GROUP BY Country;
