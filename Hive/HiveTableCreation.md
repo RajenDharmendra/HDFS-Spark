@@ -56,22 +56,22 @@ cat the file to see the contents
 8) Again listing the tables in ‘custom’ and Databases in the system. 
 Temporary table ‘temp’ has been created. Database ‘custom’ has been created.
 
-    SHOW TABLES;
+    	SHOW TABLES;
 
 9) To create the table temperature_data, 
 Create a temporary table temp and load the ‘comma-delimited file’ contents of the dataset in it. (locally loaded)
 
-    LOAD DATA LOCAL INPATH '/home/dharmukraj/hdfsSpark/dataset.txt' INTO TABLE temp ;
+    	LOAD DATA LOCAL INPATH '/home/dharmukraj/hdfsSpark/dataset.txt' INTO TABLE temp ;
 
 check the table contents
 
-    SELECT * FROM temp;
+   	 SELECT * FROM temp;
 Now create table temperature_data in custom database
 
-    CREATE TABLE temperature_data(
-    temp_date string,
-    zipcode int,
-    temperature int)
+	    CREATE TABLE temperature_data(
+	    temp_date string,
+	    zipcode int,
+	    temperature int)
 Now insert data in to temperature_data table from temp table, while inserting convert the date format in the original dataset from dd-mm-yyyy to mm-dd-yyyy as asked in the task and load it in the table temperature_data.
 
        INSERT INTO TABLE temperature_data SELECT from_unixtime(unix_timestamp(temp_date,'dd-MM-yyyy'),'MM-dd-yyyy'),zipcode,temperature from temp;
