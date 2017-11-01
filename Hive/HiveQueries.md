@@ -31,3 +31,15 @@ Execute the following queries in Hive
     SHOW DATABASES;
     USE custom;
     SELECT temp_date,temperature FROM temperature_data WHERE zipcode >300000 AND  zipcode < 399999;
+    
+Calculate maximum temperature corresponding to every year from temperature_data table.
+
+
+**SOLUTION:**
+To get the maximum temperature for a given year:
+
+Split the date column, that is in the form mm-dd-yyyy, such that we only get the yyyy.
+Group the records with respect to the year split. So we get one value for every year.
+Now the maximum temperature will be found for the group year i.e. The max temperature in every year group.
+
+    SELECT split(temp_date,'-')[2],MAX(temperature) from temperature_data GROUP BY split(temp_date,'-')[2];
