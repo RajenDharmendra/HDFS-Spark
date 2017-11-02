@@ -76,7 +76,7 @@ Here the total_medals is the final overall number of medals won by a Country in 
     SELECT Country,SUM(gold_medals) AS GOLD,SUM(silver_medals) AS SILVER,SUM(bronze_medals) AS BRONZE,SUM(total_medals) AS TOTAL FROM olympics WHERE Sport="Swimming" GROUP BY Country;
     
     
-**Task->2 **  Write a Hive program to find the number of medals that Canada won year wise.
+**Task->2**  Write a Hive program to find the number of medals that Canada won year wise.
   This we can achieve by partitioning the  table
 
 **Partitioning the Table:**
