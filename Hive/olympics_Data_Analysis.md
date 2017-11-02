@@ -100,3 +100,18 @@ Now the partitioned table contains data exclusively for records where Country = 
        INSERT OVERWRITE TABLE olympics_country_partitioned
        PARTITION(Country = 'Canada')
        SELECT Athelete,Age,Year,Closing_Date,Sport,Gold_Medals,Silver_Medals,Bronze_Medals,Total_Medals FROM olympics WHERE                          Country = 'Canada';
+       
+  **Task->3** Write a Hive Program to find the total number of medals each country won.
+
+Selecting the country, number of gold, silver, bronze and overall/total medals won by each Country from the Olympics table.
+For this, we use the sum function to sum up all the different types of medals for each Country by grouping the data with respect to the Country.
+      Here the total_medals is the final overall number of medals won by a Country.
+
+    SELECT Country,SUM(gold_medals) AS GOLD,SUM(silver_medals) AS SILVER,SUM(bronze_medals) AS BRONZE,SUM(total_medals) AS TOTAL FROM olympics GROUP BY Country;
+
+**Task->4** Write a Hive program to find the number of gold medals each country won.
+
+Selecting the country and summing up the gold_medals that each player has won from the table Olympics to get the total gold medals for each country. 
+Then we group the data with respect to the Country and we get the total number of gold_medals each country has won.
+
+    SELECT Country,SUM(gold_medals) AS GOLD FROM olympics GROUP BY Country;
