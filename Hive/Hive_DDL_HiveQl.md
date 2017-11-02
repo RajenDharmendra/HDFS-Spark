@@ -409,3 +409,285 @@ Ex:
     INSERT INTO sales SELECT * FROM sales_rgn WHERE state='Maryland';
     INSERT OVERWRITE TABLE sales SELECT * FROM sales_rgn;
     INSERT OVERWRITE TABLE sales SELECT * FROM sales_rgn WHERE id=1;
+    
+    
+3) **Inserting data into dynamic partitions:**
+This method shows how to insert data into multiple partitions through a single statement. 
+
+Dynamic partitioning is disabled by default. So we have to first enable it. The minimum configuration to enable dynamic partitioning is as follows:
+
+> SET hive.exec.dynamic.partition = true; SET
+> hive.exec.dynamic.partition.mode = nonstrict;
+
+The general syntax of inserting data into multiple partitions is as follows:
+
+> FROM tablename INSERT OVERWRITE TABLE tablename1
+> PARTITION(root_partition_name='value',child_partition_name) SELECT
+> select_statment;
+
+Where:
+tablename: This is the name of the table from which the value is to be taken by the select statement
+tablename1: This is the name of the table in which the data will be inserted
+root_partition_name: This is the static partition column
+child_partition_name: This is the dynamic partition column
+Ex:
+
+    FROM sales_region slr
+    INSERT OVERWRITE TABLE sales PARTITION(dop='2015-10-20', city) SELECT slr.id, slr.firstname, slr.lastname, slr.city;
+
+4) **Writing data into files from queries:**
+This part helps in inserting data into a file with the help of a query,   the output of a query to be saved into a file. The general format of inserting data into a file is as follows:
+
+Standard syntax:
+
+> INSERT OVERWRITE [LOCAL] DIRECTORY directory1 [ROW FORMAT row_format]
+> [STORED AS file_format]SELECT select_statment FROM from_statment.
+
+Hive extension (multiple inserts):
+
+FROM from_statement
+
+> INSERT OVERWRITE [LOCAL] DIRECTORY directory1 select_statement1[INSERT
+> OVERWRITE [LOCAL] DIRECTORY directory2 select_statement2] ...
+
+Where:
+[LOCAL]: Is an optional clause. If this clause is specified, the preceding command will look for the file in the local filesystem. 
+[ROW FORMAT row_format]: Is an optional clause. With the help of this, we can specify the row format; that is, the delimiters or the fields terminated by any character.
+[STORED AS file_format]: Is an optional clause. With the help of this clause, we can specify the file format in which we want to save the data.
+Select_statment: This is the column in the clause will be inserted into the file.
+from_statment: This part contains the table name along with the filter condition, if any.
+
+Ex:
+
+    INSERT OVERWRITE LOCAL DIRECTORY '/sales'
+    SELECT sle.id, sle.fname, sle.lname, sle.address
+    FROM sales sle;
+
+5) **Enabling transactions in Hive:**
+This method shows how to configure the Hive metastore to enable Atomicity, Consistency, Isolation, Durability (ACID) properties for a Hive table. Insert, Update and Delete are not possible in Hive until the ACID properties are not enabled. Also table must to be Bucketed in Hive if Insert, Update and Delete feature are to be used.
+
+To allow the user to execute transactional commands, the user needs to configure the metastore with transactional tables.
+
+<configuration>
+<property>
+<name>javax.jdo.option.ConnectionURL</name>
+<value>jdbc:mysql://localhost:3306/hivedb</value>
+<description>metadata is stored in a MySQL server</description>
+</property>
+<property>
+<name>javax.jdo.option.ConnectionDriverName</name>
+<value>com.mysql.jdbc.Driver</value>
+<description>MySQL JDBC driver class</description>
+</property>
+<property>
+<name>javax.jdo.option.ConnectionUserName</name>
+<value>root</value>
+<description>user name for connecting to mysql server</description>
+</property>
+<property>
+<name>javax.jdo.option.ConnectionPassword</name>
+<value>root</value>
+<description>password for connecting to mysql server</description>
+</property>
+<property>
+<name>hive.support.concurrency</name>
+<value>true</value>
+</property>
+<property>
+<name>hive.enforce.bucketing</name>
+<value>true</value>
+</property>
+<property>
+<name>hive.exec.dynamic.partition.mode</name>
+<value>nonstrict</value>
+</property>
+<property>
+<name>hive.txn.manager</name>
+<value>org.apache.hadoop.hive.ql.lockmgr.DbTxnManager</value>
+</property>
+<property>
+<name>hive.compactor.initiator.on</name>
+<value>true</value>
+</property>
+<property>
+<name>hive.compactor.worker.threads</name>
+<value>1</value>
+</property>
+</configuration>
+
+Once the properties are configured in hive-site.xml, the user needs to run the following command to create metastore tables in RDBMS:
+
+    $HIVE_HOME/bin/schematool -dbType mysql -initSchema
+
+This command will create the transactional tables in the hivedb metastore, along with other schema tables.
+
+
+
+
+6) **Inserting values into tables from SQL:**
+Inserting data into a Hive table through a SQL statement is the third variant of inserting data. This is the traditional way of inserting data into a table in any RDBMS. Inserting in a table through SQL statements can only be performed if the table supports ACID. The general format of inserting data into a table is as follows:
+
+> INSERT INTO TABLE table_name [PARTITION (partcol1[=val1],
+> partcol2[=val2] ...)] VALUES values_row [, values_row ...]
+
+Where:
+tablename: This is the name of the table
+values_row: This is the value that is to be inserted into the table
+
+Ex:
+
+    INSERT INTO sales VALUES (1, 'John', 'Terry', 'H-43 Sector-23', 'Delhi', 'India','10.10.10.10', 'P_1', '15-11-1985');
+
+
+7) **Updating Data:**
+Updating data in a Hive table is the traditional way of updating data in a table in any RDBMS. Updating data in a table can only be performed if the table supports Atomicity, Consistency, Isolation, Durability (ACID) properties.
+The general format of updating data in a table is as follows:
+
+UPDATE tablename SET column = value [, column = value ...] [WHERE expression]
+
+Where:
+tablename: This is the name of the table
+values_row: This is the value that is to be inserted into the table.
+WHERE expression: This is an optional clause. Only rows that match the WHERE clause will be updated
+
+Ex:
+
+    UPDATE sales SET lname = 'Thomas' WHERE id = 1;
+    UPDATE sales SET ip = '20.20.20.20' WHERE id = 2;
+
+
+8) **Deleting Data:**
+Deleting data from a Hive table is the traditional way of deleting data in a table in any RDBMS. Deleting data in a table can only be performed if the table supports ACID properties.
+	
+
+> DELETE FROM tablename [WHERE expression]
+
+Where:
+tablename: This is the name of the table
+WHERE expression: This is an optional clause. Only rows that match the WHERE clause will be deleted
+Ex:
+
+    DELETE FROM sales WHERE id = 1;
+
+**HiveQL Manipulation**
+-------------------
+
+Loading Data into Managed Tables
+Inserting Data into Tables from Queries
+Dynamic Partition Inserts
+Creating Tables and Loading Them in One Query
+Exporting Data
+
+
+**Loading Data into Managed Tables:**
+
+Since Hive has no row-level insert, update, and delete operations, the only way to put data into a table is to use one of the “bulk” load operations. Or you can just write files in the correct directories by other means.
+
+> LOAD DATA LOCAL INPATH '${env:HOME}/california-employees' OVERWRITE
+> INTO TABLE employees PARTITION (country = 'US', state = 'CA');
+
+This command will first create the directory for the partition, if it doesn’t already exist, then copy the data.
+If the target table is not partitioned, you omit the PARTITION clause.
+
+If the LOCAL keyword is used, the path is assumed to be in the local filesystem. If LOCAL is omitted, the path is assumed to be in the distributed filesystem. In this case, the data is moved from the path to the final location.
+
+If you specify the OVERWRITE keyword, any data already present in the target directory will be deleted first. Without the keyword, the new files are simply added to the target directory.
+
+The PARTITION clause is required if the table is partitioned and you must specify a value for each partition key.
+
+
+
+
+**Inserting Data into Tables from Queries:**
+
+The INSERT statement lets you load data into a table from a query.
+
+    INSERT OVERWRITE TABLE employees
+    PARTITION (country = 'US', state = 'OR')
+    SELECT * FROM staged_employees se
+    WHERE se.cnty = 'US' AND se.st = 'OR';
+
+With OVERWRITE, any previous contents of the partition (or whole table if not partitioned) are replaced.
+If you drop the keyword OVERWRITE or replace it with INTO, Hive appends the data rather than replaces it.
+If a record satisfied a given SELECT … WHERE … clause, it gets written to the specified table and partition. To be clear, each INSERT clause can insert into a different table, when desired, and some of those tables could be partitioned while others aren’t.
+
+You can mix **INSERT OVERWRITE** clauses and **INSERT INTO** clauses, as well.
+
+
+
+
+**Dynamic Partition Inserts:**
+Hive also supports a dynamic partition feature, where it can infer the partitions to create based on query parameters.
+
+Dynamic partitioning is not enabled by default. When it is enabled, it works in “strict” mode by default, where it expects at least some columns to be static. This helps protect against a badly designed query that generates a gigantic number of partitions.
+
+For Example:
+
+Here both values, country and state are dynamic as opposed to the previous example which is static in nature has a static value for the fields.
+
+       set hive.exec.dynamic.partition=true;
+       set hive.exec.dynamic.partition.mode=nonstrict;
+       set hive.exec.max.dynamic.partitions.pernode=1000;
+
+    INSERT OVERWRITE TABLE employees
+    PARTITION (country, state)
+    SELECT ..., se.cty, se.st
+    FROM staged_employees se;
+
+
+
+**Creating Tables and Loading Them in One Query:**
+
+You can also create a table and insert query results into it in one statement:
+
+Ex:
+
+    CREATE TABLE ca_employees
+    AS SELECT name, salary, address
+    FROM employees
+    WHERE se.state = 'CA';
+
+This table contains just the name, salary, and address columns from the employee table records for employees in California. The schema for the new table is taken from the SELECT clause.
+A common use for this feature is to extract a convenient subset of data from a larger, more unwieldy table.
+
+
+
+
+**Exporting Data:**
+
+How do we get data out of tables? If the data files are already formatted the way you want, then it’s simple enough to copy the directories or files:  
+
+    hadoop fs -cp source_path target_path
+
+Otherwise, you can use INSERT … DIRECTORY …, as in this example:
+
+    INSERT OVERWRITE LOCAL DIRECTORY '/tmp/ca_employees'
+    SELECT name, salary, address
+    FROM employees
+    WHERE se.state = 'CA';
+
+Independent of how the data is actually stored in the source table, it is written to files with all fields serialized as strings. Hive uses the same encoding in the generated output files as it uses for the tables internal storage.
+
+Just like inserting data to tables, you can specify multiple inserts to directories:
+
+    FROM staged_employees se
+    INSERT OVERWRITE DIRECTORY '/tmp/or_employees'
+    SELECT * WHERE se.cty = 'US' and se.st = 'OR'
+    INSERT OVERWRITE DIRECTORY '/tmp/ca_employees'
+    SELECT * WHERE se.cty = 'US' and se.st = 'CA'
+    INSERT OVERWRITE DIRECTORY '/tmp/il_employees'
+    SELECT * WHERE se.cty = 'US' and se.st = 'IL';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
