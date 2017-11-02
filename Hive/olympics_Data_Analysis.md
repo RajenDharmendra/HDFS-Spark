@@ -8,7 +8,7 @@
 3. Write a Hive Program to find the total number of medals each country won.
 4. Write a Hive program to find the number of gold medals each country won.
 
-Use olympics_data.csv file in the data set 
+Use *olympics_data.csv* file in the data set 
 
 **Data Set Description:**
 The data set consists of the following fields.
