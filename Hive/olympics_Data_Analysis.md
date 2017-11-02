@@ -74,3 +74,26 @@ For this, we use the sum function to sum up all the different types of medals fo
 Here the total_medals is the final overall number of medals won by a Country in Swimming.
 
     SELECT Country,SUM(gold_medals) AS GOLD,SUM(silver_medals) AS SILVER,SUM(bronze_medals) AS BRONZE,SUM(total_medals) AS TOTAL FROM olympics WHERE Sport="Swimming" GROUP BY Country;
+
+
+**Partitioning the Table:**
+1) Creating the table ‘Olympics_Country_Partitioned’ and partitioning it by Country
+2) Inserting data into the partitioned table and specifying the partition factor for Country as Canada. 
+Then loading the data from the table Olympics (Only data specific to Country = Canada) into the partitioned table.
+Now the partitioned table contains data exclusively for records where Country = Canada.
+
+    CREATE TABLE olympics_country_partitioned(
+    Athelete STRING,
+    Age INT,
+    Year INT,
+    Closing_Date STRING,
+    Sport STRING,
+    Gold_Medals INT,
+    Silver_Medals INT,
+    Bronze_Medals INT,
+    Total_Medals INT)
+    PARTITIONED BY (Country STRING);
+
+    INSERT OVERWRITE TABLE olympics_country_partitioned
+    PARTITION(Country = 'Canada')
+    SELECT Athelete,Age,Year,Closing_Date,Sport,Gold_Medals,Silver_Medals,Bronze_Medals,Total_Medals FROM olympics WHERE Country        = 'Canada';
