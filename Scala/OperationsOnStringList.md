@@ -45,10 +45,3 @@ Find count of all strings which start with the alphabet ‘a’
 
 
 
-Find count of all strings which start with the alphabet ‘a’
-
-       val countAStr = strList.count(s => s.charAt(0).equals('a'))![markdown](%5BImgur%5D%28https://i.imgur.com/7LQE2MG.png%29)
-
-
-
-
