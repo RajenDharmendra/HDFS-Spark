@@ -35,12 +35,20 @@ Convert the list of string to a list of integers, where each string is mapped to
 Find count of all strings which contain alphabet ‘m’
  
 
-      val countCStr = strList.count(s => s.contains("m"))
+      val countCStrM = strList.count(s => s.contains("m"))
 
 
 Find count of all strings which start with the alphabet ‘a’
 
        val countAStr = strList.count(s => s.charAt(0).equals('a'))
+
+
+
+
+Find count of all strings which start with the alphabet ‘a’
+
+       val countAStr = strList.count(s => s.charAt(0).equals('a'))![markdown](%5BImgur%5D%28https://i.imgur.com/7LQE2MG.png%29)
+
 
 
 
