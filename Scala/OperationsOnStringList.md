@@ -41,7 +41,8 @@ Find count of all strings which contain alphabet ‘m’
 Find count of all strings which start with the alphabet ‘a’
 
        val countAStr = strList.count(s => s.charAt(0).equals('a'))
-       
+     
+ **Output:**       
        
 ![Output](https://user-images.githubusercontent.com/29932053/32453501-5c6ad18a-c2ea-11e7-9a2d-8905769fe361.png)
 
