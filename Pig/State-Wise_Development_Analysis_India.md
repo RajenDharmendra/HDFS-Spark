@@ -135,5 +135,35 @@ Also, below is the xml data file in the spool directory. As mentioned in the con
 
 Find out the districts who achieved 100 percent objective in BPL cards. Export the results to MySQL using Sqoop
 
+Starting the Pig Shell using the command pig (not local so we can access the HDFS)
+
+    pig
+
+Registering the piggybank jar that contains the executables for various pig functions. 
+
+    REGISTER /usr/hdp/current/pig-client/piggybank.jar;
+    
+Defining the XML Parse function as XPath (name used to call the function) 
+
+    DEFINE XPath org.apache.pig.piggybank.evaluation.xml.XPath();
+
+Loading the data in the HDFS (that was exported using Flume) and using the XML Loader function to load the data into the relation -> A with every starting tag ‘row’ as one line of type: chararray with the name sdaIndia
+
+    A = LOAD 'hdfs://nn01.itversity.com:8020/user/dharmukraj/flumeImport/StatewiseDistrictwisePhysicalProgress.xml' USING org.apache.pig.piggybank.storage.XMLLoader('row') as (sdaIndia:chararray);
+
+Generating the rows (sdaIndia) in relation A by using the XML Parser XPath. Every tag under the main tag row will be separated by the tag name and given a pseudo name in the relation.
+
+    B = FOREACH A GENERATE XPath(sdaIndia,'row/State_Name') AS State_Name,XPath(sdaIndia,'row/District_Name') AS District_Name,XPath(sdaIndia,'row/Project_Objectives_IHHL_BPL') AS PO_IHHL_BPL,XPath(sdaIndia,'row/Project_Objectives_IHHL_APL') AS PO_IHHL_APL,XPath(sdaIndia,'row/Project_Objectives_IHHL_TOTAL') AS PO_IHHL_TOTAL,XPath(sdaIndia,'row/Project_Objectives_SCW') AS PO_SCW,XPath(sdaIndia,'row/Project_Objectives_School_Toilets') AS PO_School_Toilets,XPath(sdaIndia,'row/Project_Objectives_Anganwadi_Toilets') AS PO_Anganwadi_Toilets,XPath(sdaIndia,'row/Project_Objectives_RSM') AS PO_RSM,XPath(sdaIndia,'row/Project_Objectives_PC') AS PO_PC,XPath(sdaIndia,'row/Project_Performance-IHHL_BPL') AS PP_IHHL_BPL,XPath(sdaIndia,'row/Project_Performance-IHHL_APL') AS PP_IHHL_APL,XPath(sdaIndia,'row/Project_Performance-IHHL_TOTAL') AS PP_IHHL_TOTAL,XPath(sdaIndia,'row/Project_Performance-SCW') AS PP_SCW,XPath(sdaIndia,'row/Project_Performance-School_Toilets') AS PP_School_Toilets,XPath(sdaIndia,'row/Project_Performance-Anganwadi_Toilets') AS PP_Toilets,XPath(sdaIndia,'row/Project_Performance-RSM') AS PP_RSM,XPath(sdaIndia,'row/Project_Performance-PC') AS PP_PC;
+
+
+Displaying the results of the Load statement
+
+    DUMP A;
+
+![enter image description here](https://user-images.githubusercontent.com/29932053/32520982-e0e26ef0-c3df-11e7-902c-7497f3b69cbb.png)
+
+    DUMP B;
+![enter image description here](https://user-images.githubusercontent.com/29932053/32521097-39cdf02a-c3e0-11e7-8868-985f6c2e9f2a.png)
+
 
 
