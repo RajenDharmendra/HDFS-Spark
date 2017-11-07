@@ -120,3 +120,34 @@ Displaying the result in the relation casesUnderTheftArrestDistrict
 **Output:**
 
 ![enter image description here](https://user-images.githubusercontent.com/29932053/32504124-197584ba-c3ad-11e7-93d8-d0d09a89d2cb.png)
+
+*Pig program to calculate the number of arrests done between October 2014 and October 2015*
+
+Using the relation crimeDataset that was previously loaded with the dataset in the above problem
+
+
+Filtering the relation crimeDataset so as to get only the cases where an arrest was made for the crime committed. This is stored in the relation filterArrest
+
+    filterArrest = FILTER crimeDataset BY Arrest=='true';
+
+Generating all the columns in the relation filterArrest and extracting the month and year from the Date column for each row in the relation. This is stored in the relation getDate
+
+    getDate = FOREACH filterArrest GENERATE ID .. Location,SUBSTRING(Date,0,2) AS MONTH,SUBSTRING(Date,6,10) AS YEAR;
+
+Filtering the records in the relation getDate by month between October ‘14 and ‘15 and year as 2014 and 2015. This gives us a list of records that were investigated between October 2014 and October 2015. This is stored in the relation checkDate
+
+    checkDate = FILTER getDate BY((YEAR=='2014') AND ((MONTH=='10')OR(MONTH=='11')OR(MONTH=='12')))OR((YEAR=='2015') AND ((MONTH=='01')OR(MONTH=='02')OR(MONTH=='03')OR(MONTH=='04')OR(MONTH=='05')OR(MONTH=='06')OR(MONTH=='07')OR(MONTH=='08')OR(MONTH=='09')OR(MONTH=='10')));
+
+Generating the count of arrests/records in the relation checkDate by grouping all the records in checkDate. This is stored in the relation countDate
+
+    countDate = FOREACH (GROUP checkDate ALL) GENERATE COUNT_STAR(checkDate);
+
+Displaying the result in the relation countDate
+
+
+    DUMP countDate;
+
+
+**Output:**
+![enter image description here](https://user-images.githubusercontent.com/29932053/32506680-39a371ba-c3b3-11e7-9324-0c5841d9d2d3.png)
+
