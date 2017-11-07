@@ -170,5 +170,17 @@ Displaying the result of the Row Generating statement. All the data has been sep
     DUMP B;
 ![enter image description here](https://user-images.githubusercontent.com/29932053/32521097-39cdf02a-c3e0-11e7-8868-985f6c2e9f2a.png)
 
+Generating column names pertaining to District and BPL information and finding the Percentage of performance achieved for the objective that was set for BPL Cards in India.
 
+    C = FOREACH B GENERATE District_Name,PO_IHHL_BPL,PP_IHHL_BPL,ROUND_TO(((double)PP_IHHL_BPL/(double)PO_IHHL_BPL)*100,2) AS BPL_Percentage;
+
+
+
+Filtering the above result for those records where 100% objective has been met and displaying the result.
+
+    D = FILTER C BY BPL_Percentage==100;
+
+The result of the above procedure:
+
+![enter image description here](https://user-images.githubusercontent.com/29932053/32522307-d91ecd08-c3e4-11e7-8a63-1adbe0ce15a6.png)
 
