@@ -73,6 +73,8 @@ A sample view of the data in the xml file.
 To perform this task we have to execute the following steps:
 
 Create the spool directory from where Flume will retrieve the data to be stored in the HDFS
+
+
 *Note: We will export dataset from local filesystem to HDFS using Flume* 
 
 Create the configuration document for the flume job. This will contain the necessary information for fetching log files from spool directory and storing these files in the HDFS
@@ -95,12 +97,12 @@ Specifying the path in the HDFS to store the data*
     SWDWPPAgent.channels.fchannel.transactioncapacity = 1000
     SWDWPPAgent.sorces.fsource.type = spooldir
     
-    SWDWPPAgent.sorces.fsource.spooldir = /home/dharmukraj/hdfsSpark/flumeExport
+    SWDWPPAgent.sorces.fsource.spooldir = /home/username/hdfsSpark/flumeExport
     SWDWPPAgent.sorces.fsource.fileHeader = false
     SWDWPPAgent.sorces.fsource.fileSuffix = .COMPLETED
     SWDWPPAgent.sinks.hdfssink.type = hdfs
     
-    SWDWPPAgent.sinks.hdfssink.hdfs.path = hdfs://nn01.itversity.com:8020/user/dharmukraj/flumeImport
+    SWDWPPAgent.sinks.hdfssink.hdfs.path = hdfs://www.yourdomain.com:8020/user/username/flumeImport
     SWDWPPAgent.sinks.hdfssink.hdfs.batchSize = 1000
     SWDWPPAgent.sinks.hdfssink.hdfs.rollSize = 268435456
     SWDWPPAgent.sinks.hdfssink.hdfs.rollInterval = 0
