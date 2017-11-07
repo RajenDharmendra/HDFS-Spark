@@ -164,6 +164,9 @@ Displaying the results of the Load statement
 
 ![enter image description here](https://user-images.githubusercontent.com/29932053/32520982-e0e26ef0-c3df-11e7-902c-7497f3b69cbb.png)
 
+
+Displaying the result of the Row Generating statement. All the data has been separated by tag name and formatted into a tuple of multiple fields.
+
     DUMP B;
 ![enter image description here](https://user-images.githubusercontent.com/29932053/32521097-39cdf02a-c3e0-11e7-8868-985f6c2e9f2a.png)
 
