@@ -149,7 +149,7 @@ Defining the XML Parse function as XPath (name used to call the function)
 
 Loading the data in the HDFS (that was exported using Flume) and using the XML Loader function to load the data into the relation -> A with every starting tag ‘row’ as one line of type: chararray with the name sdaIndia
 
-    A = LOAD 'hdfs://nn01.itversity.com:8020/user/dharmukraj/flumeImport/StatewiseDistrictwisePhysicalProgress.xml' USING org.apache.pig.piggybank.storage.XMLLoader('row') as (sdaIndia:chararray);
+    A = LOAD 'hdfs://ww.yourdomain.com:8020/user/yourusername/flumeImport/StatewiseDistrictwisePhysicalProgress.xml' USING org.apache.pig.piggybank.storage.XMLLoader('row') as (sdaIndia:chararray);
 
 Generating the rows (sdaIndia) in relation A by using the XML Parser XPath. Every tag under the main tag row will be separated by the tag name and given a pseudo name in the relation.
 
