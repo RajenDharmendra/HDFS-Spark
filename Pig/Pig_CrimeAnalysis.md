@@ -95,3 +95,28 @@ Displaying the result in the relation casesUnderWard32. Here there are 4592 numb
 **Output:**
 
 ![enter image description here](https://user-images.githubusercontent.com/29932053/32503288-d782e798-c3aa-11e7-9ff7-eda86d607228.png)
+
+*Pig program to calculate the number of arrests in theft district wise*
+
+
+Using the relation crimeDataset that was previously loaded with the dataset in the above problem
+
+Filtering the relation crimeDataset so as to get only the cases where the Primary_Type was Theft and were arrested for the crime. This is stored in the relation filterTheft
+
+    filterTheft = FILTER crimeDataset BY Primary_Type=='THEFT' AND Arrest==true;
+
+Grouping all the records with arrested thefts by District. This is stored in the relation groupTheftDistrict
+
+    groupTheftDistrict = GROUP filterTheft BY District;
+
+Generating the count of arrests in each District (groupTheftDistrict) by grouping the records and flattening them by District. This is stored in the relation casesUnderTheftArrestDistrict
+
+    casesUnderTheftArrestDistrict = FOREACH groupTheftDistrict GENERATE FLATTEN(group) AS District,COUNT($1);
+
+Displaying the result in the relation casesUnderTheftArrestDistrict
+
+    DUMP casesUnderTheftArrestDistrict;
+
+**Output:**
+
+![enter image description here](https://user-images.githubusercontent.com/29932053/32504124-197584ba-c3ad-11e7-93d8-d0d09a89d2cb.png)
