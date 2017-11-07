@@ -66,6 +66,8 @@ Generating all cases under each FBICode by flattening (removing/un-nest the tupl
 Displaying the result in the relation casesUnderEachFBICode
 
     DUMP casesUnderEachFBICode;
+    
+**Output:**
 ![enter image description here](https://user-images.githubusercontent.com/29932053/32502466-cbd95384-c3a8-11e7-953f-f463f50b1154.png)
 
 
