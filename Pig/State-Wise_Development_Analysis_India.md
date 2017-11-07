@@ -184,3 +184,17 @@ The result of the above procedure:
 
 ![enter image description here](https://user-images.githubusercontent.com/29932053/32522307-d91ecd08-c3e4-11e7-8a63-1adbe0ce15a6.png)
 
+Now we store the result in the HDFS for the Sqoop job to export the data to a MySQL database 
+
+Storing the data in the HDFS under the path given below and separating the fields by tab space
+
+    STORE D INTO '/home/username/path/to/folder/sdaIndia' USING PigStorage('\t');
+
+To check if the file has been successfully stored in the HDFS, we check the output folder of its contents.
+The data has been stored successfully as seen by the file named part-m-00000 that hold the output of the MapReduce job
+
+    hadoop fs -cat /home/username/path/to/folder/sdaIndia/part-m-00000 
+
+
+![enter image description here](https://user-images.githubusercontent.com/29932053/32523006-933becb4-c3e7-11e7-9c12-95048b392bfb.png)
+
