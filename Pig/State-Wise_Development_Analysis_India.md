@@ -226,11 +226,17 @@ Here we create table  named `SD_Analysis_100`
 
 **Using the Sqoop command given below:**
 Specify the name of the database to hold the data
+
 Specify the password of the VM (Can also be manually entered or got from a password file)
+
 Specify the name of the table to hold the data
+
 Specify the directory in the HDFS that holds the data
+
 Specify how the fields are terminated
+
 Specify the number of MapReduce jobs :1
+
 Specify the column names to import to the MySQL table
 
     sqoop-export  \
