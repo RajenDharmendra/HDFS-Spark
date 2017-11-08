@@ -1,4 +1,4 @@
-**State-Wise Development Analysis in India**
+***State-Wise Development Analysis in India***
 ----------------------------------------
 **1. Executive Summary**
 
@@ -197,6 +197,8 @@ The data has been stored successfully as seen by the file named part-m-00000 tha
 
 
 ![enter image description here](https://user-images.githubusercontent.com/29932053/32523006-933becb4-c3e7-11e7-9c12-95048b392bfb.png)
+
+
 Now we export the data in the HDFS to a Table in MySQL by the following steps:
 
 Start the MySQL service and terminal and create the database and table to hold the data
