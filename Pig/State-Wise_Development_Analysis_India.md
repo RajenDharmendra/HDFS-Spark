@@ -396,7 +396,9 @@ After running the scoop command
 **OUTPUT:**
 
 To check the contents of the MySQL table SD_Analysis_80 use the SELECT * command 
-&darr;
+
+
+
 ![enter image description here](https://user-images.githubusercontent.com/29932053/32566542-402224ea-c486-11e7-9fb0-7c88ac320911.png)
 
 
