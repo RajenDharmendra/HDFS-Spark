@@ -198,3 +198,77 @@ The data has been stored successfully as seen by the file named part-m-00000 tha
 
 ![enter image description here](https://user-images.githubusercontent.com/29932053/32523006-933becb4-c3e7-11e7-9c12-95048b392bfb.png)
 
+**Write a Pig UDF to filter the districts which have reached 80% of objectives of BPL cards. Export the results to MySQL using Sqoop.**
+
+To filter the districts that have reached 80% of their objectives in BPL Cards
+
+To Acheive the above results we will write a pig script
+The following are the contents of the script
+
+    --Pig UDF filter the Districts which have reached 80% of objectives of BPL Cards
+    
+    
+    REGISTER /usr/hdp/current/pig-client/piggybank.jar;
+    
+    DEFINE XPath org.apache.pig.piggybank.evaluation.xml.XPath();
+    
+    REGISTER  /home/username/hdfsSpark/sdaIndia/udfFilter80.jar;
+    
+    DEFINE getPercentage sdaIndia_80.Filter80;
+    
+    A = LOAD 'hdfs://www.yourdomain.com:8020/user/username/flumeImport/StatewiseDistrictwisePhysicalProgress.xml' USING org.apache.pig.piggybank.storage.XMLLoader('row') as (sdaIndia:chararray);
+    
+    B = FOREACH A GENERATE XPath(sdaIndia,'row/State_Name') AS State_Name,XPath(sdaIndia,'row/District_Name') AS District_Name,XPath(sdaIndia,'row/Project_Objectives_IHHL_BPL') AS PO_IHHL_BPL,XPath(sdaIndia,'row/Project_Objectives_IHHL_APL') AS PO_IHHL_APL,XPath(sdaIndia,'row/Project_Objectives_IHHL_TOTAL') AS PO_IHHL_TOTAL,XPath(sdaIndia,'row/Project_Objectives_SCW') AS PO_SCW,XPath(sdaIndia,'row/Project_Objectives_School_Toilets') AS PO_School_Toilets,XPath(sdaIndia,'row/Project_Objectives_Anganwadi_Toilets') AS PO_Anganwadi_Toilets,XPath(sdaIndia,'row/Project_Objectives_RSM') AS PO_RSM,XPath(sdaIndia,'row/Project_Objectives_PC') AS PO_PC,XPath(sdaIndia,'row/Project_Performance-IHHL_BPL') AS PP_IHHL_BPL,XPath(sdaIndia,'row/Project_Performance-IHHL_APL') AS PP_IHHL_APL,XPath(sdaIndia,'row/Project_Performance-IHHL_TOTAL') AS PP_IHHL_TOTAL,XPath(sdaIndia,'row/Project_Performance-SCW') AS PP_SCW,XPath(sdaIndia,'row/Project_Performance-School_Toilets') AS PP_School_Toilets,XPath(sdaIndia,'row/Project_Performance-Anganwadi_Toilets') AS PP_Toilets,XPath(sdaIndia,'row/Project_Performance-RSM') AS PP_RSM,XPath(sdaIndia,'row/Project_Performance-PC') AS PP_PC;
+    
+    
+    C = FOREACH B GENERATE State_Name .. PP_PC,ROUND_TO(getPercentage((double)PP_IHHL_BPL,(double)PO_IHHL_BPL),2) AS BPL_Percent;
+    
+    D = FILTER C BY BPL_Percent!=0.0;
+    
+    E = FOREACH (GROUP D ALL) GENERATE COUNT_STAR(D);
+    
+    STORE D INTO 'hdfsSpark/miniProject/sdaIndia80' USING PigStorage('\t');
+    
+    
+we have created a Pig Script(with commands similar to the problem before) and execute it via the pig MapReduce shell
+
+**The steps followed are explained as below:**
+
+Registering the piggybank jar that contains the executables for various pig functions. Ex: Parse XML (Used in this assignment)
+
+
+Defining the XML Parse function as XPath (name used to call the function) 
+
+Registering the Pig UDF miniprojectudf created to filter the districts which have reached 80% of objectives of BPL cards. (Written in Java)
+
+Defining getPercentage as the function to be used to execute the UDF in package filterBPL80 and class Filter80
+
+Loading the data in the HDFS (that was exported using Flume) and using the XML Loader function to load the data into the relation A with every starting tag ‘row’ as one line of type: chararray with the name sdaIndia
+
+Generating the rows (sdaIndia) in relation A by using the XML Parser XPath. Every tag under the main tag row will be separated by the tag name and given a pseudo name in the relation.
+Generating all column and finding the Percentage of performance achieved, for the objective that was set for BPL Cards in India, by using a Pig UDF written in java and exported as a jar as below:
+
+Below is an image of the Pig UDF 
+
+![enter image description here](https://user-images.githubusercontent.com/29932053/32563729-fdf890b4-c47f-11e7-807b-519dd0a012a6.png)
+
+The UDF exported as a jar
+Place the UDF in the directory from where it is accessed
+
+Filtering the above result for those records where percentage is 0.0% (The records that do not meet the 80% objective). Therefore giving us the records that have received 80% and above in BPL cards
+Getting the count of the filtered records
+Storing the results, i.e. the filter records into a directory in the HDFS and separating the fields by tab space
+
+Executing the Pig Script in MapReduce mode (can access HDFS) as below:
+
+    pig -x mapreduce /home/username/hdfsSpark/sdaIndia/sdaIndia80.pig;
+    
+The execution was successful
+
+![enter image description here](https://user-images.githubusercontent.com/29932053/32563105-4e09133c-c47e-11e7-864a-0720d343c2c8.png)
+
+Checking the contents of the folder statedistrictanalysis80 in HDFS that contains the filtered data
+
+The data has been stored successfully as seen by the file named part-m-00000 that hold the output of the MapReduce job.
+
+![enter image description here](https://user-images.githubusercontent.com/29932053/32563285-da9c012e-c47e-11e7-8c82-e1777cbc7494.png)
