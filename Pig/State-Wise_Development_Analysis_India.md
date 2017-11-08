@@ -334,3 +334,74 @@ Checking the contents of the folder sdaIndia80 in HDFS that contains the filtere
 The data has been stored successfully as seen by the file named part-m-00000 that hold the output of the MapReduce job.
 
 ![enter image description here](https://user-images.githubusercontent.com/29932053/32563285-da9c012e-c47e-11e7-8c82-e1777cbc7494.png)
+Now we export the data in the HDFS to a Table in MySQL by the following steps:
+
+Start the MySQL service and terminal and create the database and table to hold the data
+
+Create the table named  SD_Analysis_80
+
+    CREATE TABLE SD_Analysis_80(
+    State_Name varchar(30),
+    District_Name varchar(30),
+    PO_IHHL_BPL int,
+    PO_IHHL_APL int,
+    PO_IHHL_TOTAL int,
+    PO_SCW int,
+    PO_School_Toilets int,
+    PO_Anganwadi_Toilets int,
+    PO_RSM int,
+    PO_PC int,
+    PP_IHHL_BPL int,
+    PP_IHHL_APL int,
+    PP_IHHL_TOTAL int,
+    PP_SCW int,
+    PP_School_Toilets int,
+    PP_Anganwadi_Toilets int,
+    PP_RSM int,
+    PP_PC int,
+    BPL_Percentage double
+    );
+
+**Using the Sqoop command given below:**
+&rarr;Specify the name of the database to hold the data
+
+&rarr;Specify the password of the VM (Can also be manually entered or got from a password file)
+
+&rarr;Specify the name of the table to hold the data
+
+&rarr;Specify the directory in the HDFS that holds the data
+
+&rarr;Specify how the fields are terminated (tab separated)
+
+&rarr;Specify the number of MapReduce jobs :1
+
+&rarr;Specify the column names to import to the MySQL table (Only some of all the columns that are present in the HDFS are exported)
+
+    sqoop-export  \
+    --connect jdbc:mysql://nn01.itversity.com:3306/retail_import  \
+    --username=retail_dba \
+    --password=itversity \
+    --table=SD_Analysis_80 \
+    --export-dir=hdfsSpark/miniProject/sdaIndia80 \
+    --input-fields-terminated-by '\t' \
+    -m 1;
+After running the scoop command   
+&darr;
+
+![enter image description here](https://user-images.githubusercontent.com/29932053/32566432-eadd0cc0-c485-11e7-8184-a291da67704a.png)
+
+ The file has been successfully written to the MySQL table SD_Analysis_80
+
+
+**OUTPUT:**
+
+To check the contents of the MySQL table SD_Analysis_80 use the SELECT * command 
+&darr;
+![enter image description here](https://user-images.githubusercontent.com/29932053/32566542-402224ea-c486-11e7-9fb0-7c88ac320911.png)
+
+
+Using the below command you can check for specific columns in the table
+
+    select State_Name,District_Name,BPL_Percentage FROM SD_Analysis_80 WHERE BPL_Percentage >= 95;
+
+![enter image description here](https://user-images.githubusercontent.com/29932053/32566822-3b3ebc76-c487-11e7-81a6-9cf14d2780af.png)
