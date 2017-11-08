@@ -256,6 +256,10 @@ Output:
 
 ![enter image description here](https://user-images.githubusercontent.com/29932053/32557912-88800686-c471-11e7-98b2-24013e7f1d9f.png)
 
+
+![enter image description here](https://user-images.githubusercontent.com/29932053/32564384-1ca43002-c482-11e7-9f33-b029aaf4eec5.png)
+
+
 **Write a Pig UDF to filter the districts which have reached 80% of objectives of BPL cards. Export the results to MySQL using Sqoop.**
 
 To filter the districts that have reached 80% of their objectives in BPL Cards
