@@ -329,7 +329,7 @@ The execution was successful
 
 ![enter image description here](https://user-images.githubusercontent.com/29932053/32563105-4e09133c-c47e-11e7-864a-0720d343c2c8.png)
 
-Checking the contents of the folder statedistrictanalysis80 in HDFS that contains the filtered data
+Checking the contents of the folder sdaIndia80 in HDFS that contains the filtered data
 
 The data has been stored successfully as seen by the file named part-m-00000 that hold the output of the MapReduce job.
 
