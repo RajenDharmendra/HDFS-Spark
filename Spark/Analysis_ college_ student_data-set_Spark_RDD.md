@@ -222,3 +222,47 @@ There is no student in grade 2 who have average score greater than 30 and lesser
 
 
 
+**Task 3:**
+
+
+
+Are there any students in the college that satisfy the below criteria:
+
+ *Average score per student_name across all grades is same as average score per student_name per grade*
+
+**Average score per student_name across all grades:**
+
+&#8226; Map the 1st column (student_name) and the addition of both the marks as one column Using the result from above, group the data by the key (student_name)
+
+&#8226; Using the result from above, map the 1st column and the result of the following as the 2nd column:
+Sum of the key-grouped marks divided by the count of the marks columns (2 columns)
+
+     val AVGScorePerStdentAllGrades = tupledRDD.map(x => (x._1,(x._4 + x._5))).groupByKey.map(x => (x._1,(x._2.sum.toDouble)/(x._2.size*2)));
+     AVGScorePerStdentAllGrades .foreach(println)
+![enter image description here](https://user-images.githubusercontent.com/29932053/32678329-f077de5c-c62f-11e7-8190-d1b1f8806460.png)
+
+
+**Average score per student_name per grade**
+
+&#8226; Map the 1st and 3rd column (student_name and grade) and the addition of both the marks as one column
+
+The rest is same as above.
+
+      val AVGScorePerStudentPerGrades = tupledRDD.map(x => ((x._1,x._3),(x._4 + x._5))).groupByKey.map(x => (x._1._1,(x._2.sum.toDouble)/(x._2.size*2)));
+
+![enter image description here](https://user-images.githubusercontent.com/29932053/32678776-d1f56b8c-c631-11e7-9d45-6a1a3c8e140b.png)
+
+
+**Comparing the results: (By using the intersection property)**
+
+&#8226; Finding the common data in both the lists by using the intersection property
+
+     val intersectionBoth = AVGScorePerStdentAllGrades.intersection(AVGScorePerStudentPerGrades);
+     
+     intersectionBoth.foreach(println);
+
+>  There is no student in that fulfils the criteria given above.
+
+
+
+
