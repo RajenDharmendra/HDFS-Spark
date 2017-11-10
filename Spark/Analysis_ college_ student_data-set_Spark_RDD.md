@@ -26,7 +26,7 @@
 
 4. What is the average score of students in each subject per grade?
 
-5. For all students in grade-2, how many have average score greater than 50?
+5. For all students in grade-2, how many have average score greater than 30 and lesser than 40?
 
 
 
@@ -149,6 +149,76 @@ This gives use the average of each student in each grade.
 
 ![enter image description here](https://user-images.githubusercontent.com/29932053/32676294-1d086f7a-c628-11e7-8196-8c80913b1a80.png)
 
+
+
+3. What is the average score of students in each subject across all grades?
+
+
+To find the average score of students in each subject for all grades, the following steps have been used:
+
+Select only the student_name & subject as one column and the addition of both the marks as one column
+
+Using the result we get from above, group the data by the key (student_name & subject) Using the result from above, map the 1st column and the result of the following as the 2nd column:
+
+Sum of the key-grouped marks divided by the count of the marks columns (2 columns) Then sort the result by key student_name & subject)
+
+This gives use the average of each student in each subject for all grades.
+
+    val AVGStudentBySubject = tupledRDD.map(x => ((x._1,x._2),(x._4 + x._5))).groupByKey.map(x => (x._1,(x._2.sum.toDouble)/(x._2.size*2))).sortByKey();
+     
+    AVGStudentBySubject.foreach(println)
+![enter image description here](https://user-images.githubusercontent.com/29932053/32676987-adc09e6e-c62a-11e7-9123-d00fec06e3a7.png)
+
+
+4. What is the average score of students in each subject per grade?
+
+
+To find the average score of students in each subject for each grade, the following steps have been used:
+
+Select only the student_name, subject & grade as one column and the addition of both the marks as one column
+
+Using the result we get from above, group the data by the key (student_name, subject and
+
+grade)
+
+Using the result from above, map the 1st column and the result of the following as the 2nd column:
+
+Sum of the key-grouped marks divided by the count of the marks columns (2 columns) Then sort the result by key student_name, subject and grade)
+
+
+This gives use the average of each student in each subject for each grade.
+
+     val AVGStudentBySubjectByGrade = tupledRDD.map(x => ((x._1,x._2,x._3),(x._4 + x._5))).groupByKey.map(x => (x._1,(x._2.sum.toDouble)/(x._2.size*2))).sortByKey();
+     AVGStudentBySubject.foreach(println)
+![enter image description here](https://user-images.githubusercontent.com/29932053/32677152-4df20724-c62b-11e7-9c3b-efa17b28740b.png)
+
+
+
+
+5. For all students in grade-2, how many have average score greater than 50?
+
+
+To find the students in grade 2 who have average score greater than 50, the following steps have been used:
+
+Filter the data by records where the grade == 2
+
+Using the result from above, map the 1st column and the addition of both the marks as one column
+
+Using the result from above, group the data by the key (student_name)
+
+Using the result from above, map the 1st column and the result of the following as the 2nd column:
+
+Sum of the key-grouped marks divided by the count of the marks columns (2 columns)
+
+Filter the result from above by the records where the average (2nd column) is greater than 50
+
+
+There is no student in grade 2 who have average score greater than 30 and lesser then 40
+
+     val AVGStudentBySubjectByGrade2 = tupledRDD.filter(x => x._3=="grade-2").map(x => (x._1,(x._4 + x._5))).groupByKey.map(x => (x._1,(x._2.sum.toDouble)/(x._2.size*2))).filter(x => x._2 > 30 && x._2 < 40 );
+
+     AVGStudentBySubjectByGrade2.foreach(println)
+![enter image description here](https://user-images.githubusercontent.com/29932053/32677797-df822ca8-c62d-11e7-8473-836b7502fb59.png)
 
 
 
