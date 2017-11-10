@@ -40,3 +40,6 @@ Find the total number of elements in the list divisible by both 5 and 3
     val totDiv53 = numRDD.filter(s => ((s%5)==0) && (s%3==0)).count()
 **Output:**
 
+![enter image description here](https://user-images.githubusercontent.com/29932053/32666718-61562108-c606-11e7-82b0-6b22416b7a12.png)
+
+![enter image description here](https://user-images.githubusercontent.com/29932053/32666782-9988ff96-c606-11e7-9562-f90f1a1c7d80.png)
