@@ -14,15 +14,15 @@ Data in -> HDFS-Spark/Spark/Dataset of this github
 
 Loading data to dataframe:-
 
-    Scala> val holidaysRDD = sc.textFile("S18_Dataset_Holidays.txt");
+    Scala> val holidaysRDD = sc.textFile("Dataset_Holidays.txt");
     
     Scala> val holidaysDF= holidaysRDD.map(lines=>lines.split(",")).map(arrays => (arrays(0),arrays(1),arrays(2),arrays(3),arrays(4),arrays(5))).toDF("Person_ID","Source","Destination","Mode","Distance","Year");
     
-    Scala> val transportRDD = sc.textFile("S18_Dataset_Transport.txt");
+    Scala> val transportRDD = sc.textFile("Dataset_Transport.txt");
     
     Scala> val transportDF= transportRDD.map(lines=>lines.split(",")).map(arrays=>(arrays(0),arrays(1))).toDF("Transport_Name","Fare");
     
-    Scala> val userRDD = sc.textFile("S18_Dataset_User_details.txt");
+    Scala> val userRDD = sc.textFile("Dataset_User_details.txt");
      val userDF= userRDD.map(lines=>lines.split(",")).map(arrays=>(arrays(0),arrays(1),arrays(2))).toDF("Person_ID","Name","Age");
      
 Creating temporary view out of all data frames.
@@ -96,6 +96,7 @@ First we create a User Defined Function(udf) ageGrp
     val ageGrp = udf((age: String) => {  if(age.toInt < 20)  {  "<20";  }  else  { if(age.toInt > 35)  {  ">35";  }  else {  "20-35";  }}})
 
      val userDFGrp = userDF.withColumn("AgeGrp", ageGrp($"Age"))
+     userDFGrp.show();
 
 
 ![enter image description here](https://user-images.githubusercontent.com/29932053/32799815-c0acce16-c946-11e7-8f1d-91f11a1c691b.png)
