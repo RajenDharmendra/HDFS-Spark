@@ -7,9 +7,8 @@
 4) What is the most preferred destination for all users.
 
 Use the dataset given below:
-https://drive.google.com/drive/folders/0B_P3pWagdIrrVThBaUdVSUtzbms
 
-or You can Use Data in -> HDFS-Spark/Spark/Dataset of this github
+Data in -> HDFS-Spark/Spark/Dataset of this github
 
 **Solution:**
 **Loading data to dataframe:-**
