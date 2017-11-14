@@ -32,7 +32,9 @@ Loading data to dataframe:-
 Creating temporary view out of all data frames.
 
     scala> holidaysDF.registerTempTable("holidays");
+    
     scala> transportDF.registerTempTable("transport");
+    
     scala> userDF.registerTempTable("user");
 
 All the datasets have been loaded in to temporary tables.
@@ -41,8 +43,13 @@ These dataframes would be used to find solution to problem statements
 Listing out dataframes and column names:-
 
 holidaysDF     ->   "Person_ID","Source","Destination","Mode","Distance","Year"
+
 transportDF    ->   "Transport_Name","Fare"
+
 user DF          ->   "Person_ID","Name","Age"
+
+
+
 First we create a User Defined Function(udf) ageGrp
 
     val ageGrp = udf((age: String) => {  if(age.toInt < 20)  {  "<20";  }  else  { if(age.toInt > 35)  {  ">35";  }  else {  "20-35";  }}})
