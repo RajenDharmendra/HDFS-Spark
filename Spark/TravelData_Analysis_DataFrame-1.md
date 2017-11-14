@@ -9,7 +9,7 @@
 Use the dataset given below:
 https://drive.google.com/drive/folders/0B_P3pWagdIrrVThBaUdVSUtzbms
 
-or You can Use In Dataset 
+or You can Use Data in -> HDFS-Spark/Spark/Dataset of this github
 
 **Solution:**
 **Loading data to dataframe:-**
