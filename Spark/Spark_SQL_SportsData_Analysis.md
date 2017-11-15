@@ -9,7 +9,7 @@ Using spark-sql, Find:
 
 ***Note:*** Use the dataset given below:
 
-Data in -> HDFS-Spark/Spark/Dataset/Sports_data.txt of this github
+Data in -> HDFS-Spark/Spark/Dataset/Sports_data.txt of this github repo
 
 
 **Solution:-**
