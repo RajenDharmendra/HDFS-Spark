@@ -91,7 +91,7 @@ silver medalists, with age <= 31 are ranked rookie
 **Creating UDF:-**
 Create a Spark SQL UDF that takes the medal_type and age as parameters and performs the change as required in the problem statement. AddRanking
 
-Using the DataFrame SportsDataDF created above with the withColumn function, we:
+Using the DataFrame SportsDF created above with the withColumn function, we:
 
 Assign the name for the new column (ranking) and
 
@@ -107,7 +107,7 @@ Call the UDF AddRanking with the 1st argument as medal_type and the 2nd argument
 
 
 
-    scala> val sportsDataRanking = spartsDF.withColumn("Ranking",ADDRanking($"medal_type",$"age"));
+    scala> val sportsDataRanking = sportsDF.withColumn("Ranking",ADDRanking($"medal_type",$"age"));
 
 
     scala> sportsDataRanking.show(50);
