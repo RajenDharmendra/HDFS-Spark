@@ -23,12 +23,12 @@
 
 
 
-*S18_Dataset_Holidays:*
+*Dataset_Holidays:*
 
 The dataset is of holiday details of travelers with columns: user_id, src, dest, travel_mode, distance, year_of_travel:
 ![enter image description here](https://user-images.githubusercontent.com/29932053/32736111-a767d1fe-c864-11e7-9921-5a27dc3109d8.png)
 
-*S18_Dataset_Transport:*
+*Dataset_Transport:*
 
 The dataset is of transport details with columns: travel_mode, cost_per_unit:
 
