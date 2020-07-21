@@ -608,7 +608,6 @@ Running on a cluster
 
 #########################################################
 Spark Memory Mangement
-https://0x0fff.com/spark-memory-management/
 #########################################################
 
 running same code on Spark 1.5.x and 1.6 will result in diff behavior
